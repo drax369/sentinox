@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #030712;
+  --bg-secondary: #0a0f1e;
+  --glass-bg: rgba(12, 20, 40, 0.55);
+  --glass-border: rgba(0, 255, 255, 0.12);
+  --neon-cyan: #00f5ff;
+  --neon-blue: #3b82f6;
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --text-primary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.4);
+  --glow-purple: 0 0 30px rgba(168, 85, 247, 0.35);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f0f4ff;
+  --bg-secondary: #e8eeff;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(59, 130, 246, 0.2);
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-orbitron), var(--font-geist-sans), system-ui;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: #fff;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.holographic-border {
+  position: relative;
+}
+
+.holographic-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    var(--neon-cyan),
+    var(--neon-purple),
+    var(--neon-blue),
+    var(--neon-cyan)
+  );
+  background-size: 300% 300%;
+  animation: holo-shift 4s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes holo-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.neon-text {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.scan-line {
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 245, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0, 245, 255, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(168, 85, 247, 0.1), transparent),
+    radial-gradient(ellipse 50% 60% at 50% 80%, rgba(59, 130, 246, 0.08), transparent),
+    var(--bg-primary);
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(0, 245, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 255, 0.3);
+  border-radius: 3px;
+}
+
+.explore-btn {
+  animation: fade-in 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fade-in-word {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
