@@ -1,0 +1,37 @@
+export const LANGUAGE_NAMES: Record<string, string> = {
+  en: "English",
+  hi: "Hindi",
+  bn: "Bengali",
+  te: "Telugu",
+  mr: "Marathi",
+  ta: "Tamil",
+  ur: "Urdu",
+  gu: "Gujarati",
+  kn: "Kannada",
+  ml: "Malayalam",
+  pa: "Punjabi",
+  or: "Odia",
+  as: "Assamese",
+  sa: "Sanskrit",
+  kok: "Konkani",
+  mni: "Manipuri",
+  ne: "Nepali",
+  sd: "Sindhi",
+  ks: "Kashmiri",
+  mai: "Maithili",
+  sat: "Santali",
+  doi: "Dogri",
+  brx: "Bodo",
+  es: "Spanish",
+  fr: "French",
+  de: "German",
+  ar: "Arabic",
+  zh: "Chinese",
+  ja: "Japanese",
+  pt: "Portuguese",
+  ru: "Russian",
+};
+
+export function getLanguageName(code: string): string {
+  return LANGUAGE_NAMES[code] ?? code;
+}

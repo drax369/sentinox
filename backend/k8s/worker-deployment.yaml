@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentinox-worker
+  namespace: sentinox
+  labels:
+    app: sentinox-worker
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sentinox-worker
+  template:
+    metadata:
+      labels:
+        app: sentinox-worker
+    spec:
+      containers:
+        - name: worker
+          image: sentinox/api:latest
+          command: ["node", "dist/worker.js"]
+          envFrom:
+            - secretRef:
+                name: sentinox-secrets
+            - configMapRef:
+                name: sentinox-config
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 2Gi

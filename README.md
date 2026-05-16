@@ -44,6 +44,19 @@
 
 ---
 
+## Full-stack monorepo
+
+This repository contains the complete Sentinox healthcare platform:
+
+| Path | Stack | Description |
+|------|--------|-------------|
+| **/** (root) | Next.js 16 | Frontend — landing, workspace, voice, i18n |
+| **`backend/`** | Fastify + Prisma | API — auth, scans, Grok analysis, WebSocket, workers |
+
+See [`backend/README.md`](backend/README.md) for API setup, Docker, and Kubernetes.
+
+---
+
 ## What is Sentinox?
 
 Sentinox is a next-generation **healthcare AI web platform** that helps users understand consumable products — medicines, supplements, packaged foods, and labels — through an immersive **“health OS”** experience.
@@ -138,6 +151,7 @@ Supported codes include **English, Hindi, Bengali, Telugu, Tamil, Marathi, Gujar
 
 ```
 sentinox/
+├── backend/              # Fastify API, Prisma, Redis, BullMQ, Grok
 ├── docs/images/          # README screenshots
 ├── src/
 │   ├── app/              # App Router pages & API routes
